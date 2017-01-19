@@ -51,7 +51,6 @@ public class Service {
             JSONObject product = cart.getJSONObject(i);
 
             if(productDaoJbdc.checkIfProductIsInDatabase(product.getString("name"))) {
-                System.out.println("lefut az alattam lévő sor");
                 productDaoJbdc.updateQuantity(productDaoJbdc.getQuantity(product.getString("name")) + product.getInt("quantity")
                         , product.getString("name"), user);
             }else {
@@ -60,7 +59,8 @@ public class Service {
                 productDaoJbdc.add(actualProduct);
             }
         }
-
+        Product product = productDaoJbdc.selectMostBoughtItem("user");
+        System.out.println(product.getUser() + product.getQuantity());
         JSONObject obj = new JSONObject();
         obj.put("Advertisement", customer_HTML);
         obj.put("status", "done");

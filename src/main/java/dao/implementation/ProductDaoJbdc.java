@@ -52,7 +52,7 @@ public class ProductDaoJbdc implements productDao {
     }
 
     public Product selectMostBoughtItem(String user) {
-        String query = "SELECT * FROM product WHERE webshop_user = ?,  WHERE quantity = (select max(quantity) from product)";
+        String query = "SELECT * FROM product WHERE webshop_user = ?  AND quantity = (select max(quantity) from product)";
 
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(query))
@@ -88,7 +88,6 @@ public class ProductDaoJbdc implements productDao {
             statement.setString(2, productName);
             statement.setString(3, user);
             statement.executeUpdate();
-            System.out.println("most updateltem a szarod");
 
         } catch (SQLException e) {
             e.printStackTrace();
