@@ -26,6 +26,7 @@ public class ServerController {
             JSONObject jsonObject1 = new JSONObject(bannerServiceController.getBannerByUsernameAndCart());
             params.put("banner", jsonObject.get("Advertisement"));
             params.put("banner2", jsonObject1.get("Advertisement"));
+
         }catch (IOException | URISyntaxException e) {
             System.out.print(e);
         }

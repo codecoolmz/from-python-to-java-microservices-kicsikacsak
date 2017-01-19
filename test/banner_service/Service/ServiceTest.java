@@ -32,5 +32,4 @@ public class ServiceTest {
         assertEquals("user", service.getBanner("user").get("user"));
     }
 
-
 }

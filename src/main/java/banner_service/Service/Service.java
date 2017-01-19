@@ -25,6 +25,8 @@ public class Service {
     private Service() {
     }
 
+
+
     public static Service getInstance(){
         if (instance == null){
             instance = new Service();
@@ -65,9 +67,16 @@ public class Service {
         System.out.println(product.getUser() + product.getQuantity());
         JSONObject obj = new JSONObject();
 
-        obj.put("Advertisement", customer_HTML);
+        obj.put("Advertisement", createHTML(product));
         obj.put("status", "done");
         return obj;
     }
-    
+
+    public String createHTML(Product product){
+        return "<style>#suggestion {height: 100px;width: 500px;background-color: pink;border-style: dotted;text-align: center;}p{font-style: oblique;color: green;}</style>" +
+                "<div id=\"suggestion\" class=\"container\">" +
+                "<div class=\"col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3\">" +
+                "<p>Suggestion:"+product.getCategory() +" "+ product.getName() +" "+product.getPrice()+"</p>" +
+                "</a></div></div>";
+    }
 }
