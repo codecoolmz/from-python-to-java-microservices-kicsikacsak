@@ -1,5 +1,8 @@
 package banner_service.Service;
 
+import dao.implementation.ProductDaoJbdc;
+import model.Product;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -42,7 +45,22 @@ public class Service {
         return obj;
     }
 
-    public JSONObject getBanner(String user, String cart) {
+    public JSONObject getBanner(String user, JSONArray cart) {
+        ProductDaoJbdc productDaoJbdc = ProductDaoJbdc.getInstance();
+        for(int i = 0; i < cart.length(); i++) {
+            JSONObject product = cart.getJSONObject(i);
+
+            if(productDaoJbdc.checkIfProductIsInDatabase(product.getString("name"))) {
+                System.out.println("lefut az alattam lévő sor");
+                productDaoJbdc.updateQuantity(productDaoJbdc.getQuantity(product.getString("name")) + product.getInt("quantity")
+                        , product.getString("name"), user);
+            }else {
+                Product actualProduct = new Product(user, product.getString("name"),
+                        product.getString("category"), product.getString("defaultprice"), product.getInt("quantity"));
+                productDaoJbdc.add(actualProduct);
+            }
+        }
+
         JSONObject obj = new JSONObject();
         obj.put("Advertisement", customer_HTML);
         obj.put("status", "done");

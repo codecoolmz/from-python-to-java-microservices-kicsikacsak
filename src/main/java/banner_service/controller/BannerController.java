@@ -1,7 +1,9 @@
 package banner_service.controller;
 
 import banner_service.Service.Service;
+import dao.implementation.ProductDaoJbdc;
 import db_connector.DataBaseConnectorImpl;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import spark.Request;
@@ -19,7 +21,7 @@ import java.sql.SQLException;
 public class BannerController {
 
     private final Service service;
-    private static DataBaseConnectorImpl connector = DataBaseConnectorImpl.getInstance();
+    private ProductDaoJbdc productDaoJbdc = ProductDaoJbdc.getInstance();
 
 
     public BannerController(Service service){
@@ -39,12 +41,13 @@ public class BannerController {
             if(jsonObject.length() == 0) {
                 return service.getBanner();
             }
-            if (checkClientAPIKEY(request.body())) {
-                System.out.println(checkClientAPIKEY(request.body()));
+            if (productDaoJbdc.checkClientAPIKEY(request.body())) {
+                System.out.println(productDaoJbdc.checkClientAPIKEY(request.body()));
                 if (!jsonObject.has("cart")) {
                     return service.getBanner(jsonObject.get("user").toString());
                 }
-                return service.getBanner(jsonObject.get("user").toString(), jsonObject.get("cart").toString());
+
+                return service.getBanner(jsonObject.get("user").toString(), jsonObject.getJSONArray("cart"));
             }
             else {
                 response.status(400);
@@ -59,31 +62,4 @@ public class BannerController {
 
     }
 
-    public boolean checkClientAPIKEY(String jsonStr) throws JSONException {
-        JSONObject jsonObject = new JSONObject(jsonStr);
-        Integer apikey = jsonObject.getInt("apikey");
-
-        String query = "SELECT * FROM client WHERE apikey = ? ;";
-
-        try (Connection connection = connector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query))
-
-        {
-            statement.setString(1, apikey.toString());
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                System.out.println("Client APIKey found");
-                return true;
-
-            } else {
-                System.out.println("No APIKey was found");
-                return false;
-            }
-
-        } catch (SQLException | JSONException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 }
