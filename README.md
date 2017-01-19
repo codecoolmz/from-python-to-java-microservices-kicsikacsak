@@ -34,7 +34,7 @@ To get the advertisement you have to send a post request to the api, with a Json
     -empty : {} - this is a free advertisement for the codecool webpage.
     -filled with username, and apikey : "{user:user, apikey:apikey}" - this feature is not implementet yet, but here the user will get a suggestion
       based on the recent orders.
-    -filled with username, cart, and apikey : "{user:user, cart:cart, apikey:apikey}" - this feature is not implementet yet, but here the user will get a suggestion
+    -filled with username, cart, and apikey :"{user:user, apikey:1234, cart: [{name:iphone(String), category:mobile(String), defaultprice:100USD(String), quantity:4(Integer)}, {name:ledtv, category:tv, defaultprice:200USD, quantity:1}]}}"
       based on the recent orders.
 
       IMPORTANT** - if you use this api localy you have to put an API key in the clients table, with client name.
