@@ -13,7 +13,7 @@ public class Service {
     private static Service instance;
     private static String basic_banner_HTML = "<div class=\"container\">" +
             "<div class=\"col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3\">" +
-            "<a href=\"https://codecool.hu/\"><img src=\"http://www.auplod.com/u/opladu8f6e7.gif\" border=\"1\">" +
+            "www.auplod.com/u/opladu8f6e7.gif\" border=\"1\">" +
             "</a></div></div>";
 
     private static String customer_HTML = "<div class=\"container\">" +
@@ -23,6 +23,8 @@ public class Service {
 
     private Service() {
     }
+
+
 
     public static Service getInstance(){
         if (instance == null){
@@ -62,8 +64,16 @@ public class Service {
         Product product = productDaoJbdc.selectMostBoughtItem("user");
         System.out.println(product.getUser() + product.getQuantity());
         JSONObject obj = new JSONObject();
-        obj.put("Advertisement", customer_HTML);
+        obj.put("Advertisement", createHTML(product));
         obj.put("status", "done");
         return obj;
+    }
+
+    public String createHTML(Product product){
+        return "<style>div {height: 100px;width: 500px;background-color: pink;border-style: dotted;text-align: center;}p{font-style: oblique;color: green;}</style>" +
+                "<div class=\"container\">" +
+                "<div class=\"col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3\">" +
+                "<p>Suggestion:"+product.getCategory() +" "+ product.getCategory() +" "+product.getCategory()+"</p>" +
+                "</a></div></div>";
     }
 }
