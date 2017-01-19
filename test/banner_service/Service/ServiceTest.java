@@ -32,9 +32,5 @@ public class ServiceTest {
         assertEquals("user", service.getBanner("user").get("user"));
     }
 
-    @Test
-    public void getBannerWithUsernameAndCart() throws Exception {
-        assertEquals("cart", service.getBanner("user", "cart").get("cart"));
-    }
 
 }

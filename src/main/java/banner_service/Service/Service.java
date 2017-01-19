@@ -8,6 +8,7 @@ import org.json.JSONObject;
 /**
  * Created by svindler on 10.01.2017.
  */
+
 public class Service {
 
     private static Service instance;
@@ -60,10 +61,13 @@ public class Service {
             }
         }
         Product product = productDaoJbdc.selectMostBoughtItem("user");
+
         System.out.println(product.getUser() + product.getQuantity());
         JSONObject obj = new JSONObject();
+
         obj.put("Advertisement", customer_HTML);
         obj.put("status", "done");
         return obj;
     }
+    
 }
