@@ -10,14 +10,28 @@ import java.net.URISyntaxException;
 import static spark.Spark.*;
 
 
+
 /**
- * Created by svindler on 10.01.2017.
+ * <h1>Banner Microservice</h1>
+ * <h2>By Kicsikacsák</h2>
+ * This class is responsible for running the server of the MicroService
+ *
+ * @author mz
+ * @version 1.0
+ * @see BannerService
+ * @see BannerController
  */
 
 public class BannerService {
 
     private BannerController controller;
     private static final Logger logger = LoggerFactory.getLogger(BannerService.class);
+
+    /**
+     * This method is responsible for setting up port, endpoints, and overall Exception handling
+     *
+     * @param args
+     */
 
 
     public static void main(String[] args) {

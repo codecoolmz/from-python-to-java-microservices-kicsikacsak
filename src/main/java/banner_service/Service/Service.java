@@ -5,6 +5,13 @@ import org.json.JSONObject;
 /**
  * Created by svindler on 10.01.2017.
  */
+
+/**
+ * This class is responsible for the business logic of the API
+ *
+ * @author mz
+ * @version 1.0
+ */
 public class Service {
 
     private static Service instance;
@@ -28,6 +35,11 @@ public class Service {
         return instance;
     }
 
+    /**
+     * This method is responsible for getting the standard advertisement banner
+     * @return JSONobject with status and Advertisement keys.
+     */
+
     public JSONObject getBanner(){
         JSONObject obj = new JSONObject();
         obj.put("status","done");
@@ -35,12 +47,27 @@ public class Service {
         return obj;
     }
 
+    /**
+     * This method is responsible for getting the advertisement banner with parameter
+     * not implemented
+     * @param user, request String
+     * @return JSONobject with status and Advertisement keys
+     */
+
     public JSONObject getBanner(String user) {
         JSONObject obj = new JSONObject();
         obj.put("Advertisement", customer_HTML);
         obj.put("status", "done");
         return obj;
     }
+
+    /**
+     * This method is responsible for getting the advertisement banner with  two parameter
+     * not implemented
+     * @param user, request String
+     * @param cart, request String
+     * @return JSONobject with status and Advertisement keys
+     */
 
     public JSONObject getBanner(String user, String cart) {
         JSONObject obj = new JSONObject();
